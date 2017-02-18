@@ -7,7 +7,7 @@
 module Admin
   class ApplicationController < Administrate::ApplicationController
     before_action :authenticate_admin
-
+    skip_before_filter :verify_authenticity_token
     def authenticate_admin
       # TODO Add authentication logic here.
     end
