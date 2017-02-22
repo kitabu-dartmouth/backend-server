@@ -1,12 +1,13 @@
 <%= simple_form_for(@link) do |f| %>
-  <%= f.error_notification %>
+    <%= f.error_notification %>
 
-  <div class="form-inputs">
+<div class="form-inputs">
     <%= f.input :url %>
-    <%= f.input :type %>
-  </div>
+    <%= f.input :typep %>
+    <%= f.collection_select :user_id, User.order(:id),:id,:phoneno, include_blank: true %>
+</div>
 
-  <div class="form-actions">
+<div class="form-actions">
     <%= f.button :submit %>
-  </div>
+</div>
 <% end %>
