@@ -7,9 +7,9 @@ class ApiController < ApplicationController
             render json: false
         else
             if user.valid_password? password
-                render json: true
+              render json: true
             else
-                render json: false
+              render json: false
             end
         end
 
