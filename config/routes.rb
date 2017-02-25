@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   get 'api/delete_link'
 
-  get 'api/contacts'
+  post 'api/contacts'
 
   resources :links
   namespace :admin do
