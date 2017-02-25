@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   post 'api/register'
 
+  post 'api/gcm'
+
   post 'api/add_link'
 
   get 'api/update_link'
