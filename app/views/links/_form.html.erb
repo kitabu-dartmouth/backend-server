@@ -2,9 +2,8 @@
     <%= f.error_notification %>
 
 <div class="form-inputs">
-    <%= f.input :url %>
-    <%= f.input :typep %>
-    <%= f.collection_select :user_id, User.order(:id),:id,:phoneno, include_blank: true %>
+    <%= f.input :url, :label=> "Enter your url here" %>
+    <%= f.input :typep, :label => "True means public, false means private" %>
 </div>
 
 <div class="form-actions">
