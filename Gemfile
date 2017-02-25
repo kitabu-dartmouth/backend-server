@@ -30,6 +30,7 @@ gem 'administrate'
 gem 'bourbon'
 gem 'devise'
 gem 'foundation-rails', '~> 5.5'
+gem 'acts-as-taggable-on', '~> 4.0'
 gem 'high_voltage'
 gem 'simple_form'
 gem 'therubyracer', :platform=>:ruby

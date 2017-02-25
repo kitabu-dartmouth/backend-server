@@ -12,7 +12,11 @@ class ApiController < ApplicationController
         render json: false
       end
     end
+  end
 
+  def contacts
+    contacts = params[:contacts_str]
+    true
   end
 
   def validate_each(value)
