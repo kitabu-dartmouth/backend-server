@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170225033322) do
+ActiveRecord::Schema.define(version: 20170225192923) do
 
   create_table "links", force: :cascade do |t|
     t.string   "url"
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 20170225033322) do
     t.string   "name"
     t.integer  "role"
     t.string   "phoneno"
+    t.text     "regid"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["phoneno"], name: "index_users_on_phoneno", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

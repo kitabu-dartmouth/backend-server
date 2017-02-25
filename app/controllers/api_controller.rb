@@ -1,4 +1,6 @@
 class ApiController < ApplicationController
+  
+  # /api/sign_in
   def sign_in
     phoneno = params[:phoneno]
     password = params[:password]
@@ -14,12 +16,28 @@ class ApiController < ApplicationController
     end
   end
 
+  # /api/gcm
+  def gcm
+    phoneno = params[:phoneno]
+    regid = params[:regId]
+    user = User.find_by_phoneno(phoneno)
+    if user == nil
+      render json: false
+    else
+      user.regid = regid
+      user.save
+      render json: true
+    end
+  end
+  
+  # /api/contacts
   def contacts
     contacts = params[:contacts_str]
     true
   end
 
-  def validate_each(value)
+  # Helper method
+  private def validate_each(value)
     if value =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
       true
     else
@@ -27,6 +45,7 @@ class ApiController < ApplicationController
     end
   end
 
+  # /api/register
   def register
     phoneno = params[:phoneno]
     password = params[:password]
