@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   post 'api/sign_in'
 
   post 'api/register'
+  
+  get 'api/message'
 
   post 'api/gcm'
 
