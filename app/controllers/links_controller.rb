@@ -10,6 +10,11 @@ class LinksController < ApplicationController
   # GET /links/1
   # GET /links/1.json
   def show
+    @link = Link.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.json {render json: @link}
+    end
   end
 
   # GET /links/new
@@ -69,6 +74,6 @@ class LinksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def link_params
-      params.require(:link).permit(:url, :typep, :user_id)
+      params.require(:link).permit(:url, :typep, :user_id, :tag_list)
     end
 end

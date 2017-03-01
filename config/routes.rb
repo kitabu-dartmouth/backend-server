@@ -11,7 +11,9 @@ Rails.application.routes.draw do
 
   get 'api/update_link'
 
-  get 'api/delete_link'
+  get 'api/getlinks/:id' => "api#getlinks"
+
+  get 'api/delete_link/:id/:phoneno' => "api#delete_link"
 
   post 'api/contacts'
 

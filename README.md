@@ -6,6 +6,17 @@ provided by the [RailsApps Project](http://railsapps.github.io/).
 
 Rails Composer is supported by developers who purchase our RailsApps tutorials.
 
+API
+----------
+
+Adding links --
+
+- /api/add_link?url=**&phoneno=**&typep=true&tag_list=** (POST)
+
+- /api/delete_link/:id/:phoneno (GET)
+
+- /api/getlinks/:id <- Add an id to the URL. The id will be the highest id value in the local db. The server will only fetch and give the values greater than this id. So only newer values get added to the Sqlite db.
+
 Problems? Issues?
 -----------
 
