@@ -26,10 +26,16 @@ class LinksController < ApplicationController
   def edit
   end
 
+  # Should wget the url and parse over here.
+  private def get_title url
+    ""
+  end
+
   # POST /links
   # POST /links.json
   def create
     @link = Link.new(link_params)
+    @link.title = get_title @link.url
 
     respond_to do |format|
       if @link.save
@@ -74,6 +80,6 @@ class LinksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def link_params
-      params.require(:link).permit(:url, :typep, :user_id, :tag_list)
+      params.require(:link).permit(:url, :typep, :tag_list)
     end
 end
