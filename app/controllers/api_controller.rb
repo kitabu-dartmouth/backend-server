@@ -117,6 +117,7 @@ class ApiController < ApplicationController
   def update_link
   end
 
+  # /api/delete_link
   def delete_link
     id = params[:id]
     phoneno = params[:phoneno]
@@ -135,7 +136,16 @@ class ApiController < ApplicationController
     end
   end
 
+  # /api/getlinks/:id/:phoneno
   def getlinks
+    @alllinks = {"public" => [], "private" => []}
+    if params[:id] and params[:phoneno]
+      user = User.find_by_phoneno(params[:phoneno])
+      @alllinks["public"] = Link.select {|link| link.id > params[:id].to_i and link.typep == true}
+      @alllinks["private"] = Link.select { |link| link.user_id == user.id and link.typep == false}
+    else
+      render json: false
+    end
+    render json: @alllinks
   end
-
 end
