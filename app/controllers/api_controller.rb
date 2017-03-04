@@ -102,12 +102,53 @@ class ApiController < ApplicationController
     end
   end
 
+  # /api/add_link
   def add_link
+      url = params[:url]
+      phoneno = params[:phoneno]
+      tags = params[:tags]
+      typep = params[:typep]
+      @user = User.find_by_phoneno(phoneno)
+      @link = Link.create!({:url => url, :user_id => @user.id, :typep => typep, :tag_list => tags})
+      if @link == nil
+          render json: false
+      else
+          render json: @link
+      end
   end
 
   def update_link
   end
 
+  # /api/delete_link
   def delete_link
+    id = params[:id]
+    phoneno = params[:phoneno]
+    @link = Link.find(id)
+    puts @link
+    puts User.find_by_phoneno(phoneno)
+    begin
+      if @link.user_id == User.find_by_phoneno(phoneno)
+        @link.destroy
+        render json: true
+      else
+        render json: false
+      end
+    rescue
+      render json: false
+    end
+  end
+
+  # /api/getlinks/:id/:phoneno
+  def getlinks
+    @alllinks = {"public" => [], "private" => []}
+    if params[:id] and params[:phoneno]
+      user = User.find_by_phoneno(params[:phoneno])
+      @alllinks["public"] = Link.select {|link| link.id > params[:id].to_i and link.typep == true}
+      @alllinks["private"] = Link.select { |link| link.user_id == user.id and link.typep == false}
+    else
+      render json: false
+    end
+    render json: @alllinks
   end
 end

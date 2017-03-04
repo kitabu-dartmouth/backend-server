@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170225202719) do
+ActiveRecord::Schema.define(version: 20170301090051) do
 
   create_table "links", force: :cascade do |t|
     t.string   "url"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20170225202719) do
     t.datetime "updated_at", null: false
     t.integer  "user_id"
     t.boolean  "typep"
+    t.string   "title"
   end
 
   create_table "rpush_apps", force: :cascade do |t|
