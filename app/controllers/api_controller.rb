@@ -33,15 +33,17 @@ class ApiController < ApplicationController
 
   # /api/message
   def message
-    app = Rpush::Gcm::App.new
-    app.name = "android_app"
-    app.auth_key = "AIzaSyCIg1eu_mSBZcjKy2g6CPbkjjZ6-5yPQsM"
-    app.connections = 1
-    app.save!
+      if Rpush::Gcm::App.find_by_name("android_app") == nil
+        app = Rpush::Gcm::App.new
+        app.name = "android_app"
+        app.auth_key = "AIzaSyCIg1eu_mSBZcjKy2g6CPbkjjZ6-5yPQsM"
+        app.connections = 1
+        app.save!
+      end
     users = User.all
     reg = []
     users.each do |user|
-      if user.regid!= nil or user.regid.length > 0
+      if user.regid
         reg.append(user.regid)
       end
     end
@@ -57,6 +59,7 @@ class ApiController < ApplicationController
       icon: 'myicon'
     }
     n.save!
+    render json:true
   end
   
   # /api/contacts
