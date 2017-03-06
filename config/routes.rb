@@ -5,15 +5,17 @@ Rails.application.routes.draw do
   
   get 'api/message'
 
+  post 'api/message'
+
   post 'api/gcm'
 
   post 'api/add_link'
 
-  get 'api/update_link'
+  post 'api/update_link'
 
-  get 'api/getlinks/:id/:phoneno' => "api#getlinks"
+  post 'api/getlinks/:id/:phoneno' => "api#getlinks"
 
-  get 'api/delete_link/:id/:phoneno' => "api#delete_link"
+  post 'api/delete_link/:id/:phoneno' => "api#delete_link"
 
   post 'api/contacts'
 
