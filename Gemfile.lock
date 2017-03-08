@@ -336,6 +336,7 @@ DEPENDENCIES
   launchy
   listen (~> 3.0.5)
   net-http-persistent (= 2.9.4)
+  nokogiri
   pry-rails
   pry-rescue
   puma (~> 3.0)

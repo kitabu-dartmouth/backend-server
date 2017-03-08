@@ -1,2 +1,15 @@
-<h3>Welcome</h3>
-<p><%= link_to 'Users:', users_path %> <%= User.count %> registered</p>
+<h3>Welcome <%= current_user.name if current_user%></h3>
+<ul class="tabs vertical" data-tab>
+    <li class="tab-title active"><a href="#panel11">Public Links</a></li>
+    <li class="tab-title"><a href="#panel21">Private Links</a></li>
+</ul>
+<div class="tabs-content">
+    <div class="content active" id="panel11">
+        <p>This is the first panel of the basic tab example. You can place all sorts of content here including a grid.</p>
+    </div>
+    <div class="content" id="panel21">
+        <% if !user_signed_in? %>
+            <p>Please sign in.</p>
+        <% end %>
+    </div>
+</div>

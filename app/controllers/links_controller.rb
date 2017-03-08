@@ -45,8 +45,18 @@ def create
         @link.title = "No title"
     end
     @link.user_id = current_user.id
-    respond_to do |format|
+arr = [].append(@link.user.regid)
+respond_to do |format|
         if @link.save
+        puts `curl -X POST \
+        -H \"Authorization: key=AIzaSyCIg1eu_mSBZcjKy2g6CPbkjjZ6-5yPQsM\" \
+        -H \"Content-Type: application/json\" \
+        -d '{ 
+        "registration_ids": #{arr.inspect}, 
+        "data": {"save": #{@link.to_json}},
+        "priority": "high"
+        }' \
+        https://android.googleapis.com/gcm/send`
             format.html { redirect_to @link, notice: 'Link was successfully created.' }
             format.json { render :show, status: :created, location: @link }
         else
@@ -74,6 +84,16 @@ end
 # DELETE /links/1
 # DELETE /links/1.json
 def destroy
+    arr = [].append(@link.user.regid)
+    logger.debug `curl -X POST \
+        -H \"Authorization: key=AIzaSyCIg1eu_mSBZcjKy2g6CPbkjjZ6-5yPQsM\" \
+        -H \"Content-Type: application/json\" \
+        -d '{ 
+        "registration_ids": #{arr.inspect}, 
+        "data": {"del":"#{@link.id}"},
+        "priority": "high"
+        }' \
+        https://android.googleapis.com/gcm/send`
     @link.destroy
     respond_to do |format|
         format.html { redirect_to links_url, notice: 'Link was successfully destroyed.' }

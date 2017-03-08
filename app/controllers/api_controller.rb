@@ -1,4 +1,5 @@
 require 'rpush'
+require 'nokogiri'
 class ApiController < ApplicationController
 
     # /api/sign_in
@@ -74,7 +75,7 @@ class ApiController < ApplicationController
         #"notification": {"body": "#{@link.url}", 
         #"title": "#{@link.title} from #{mycontact}"
         #"icon": "myicon"}
-        
+
 
         render json:true
     end
@@ -142,26 +143,28 @@ class ApiController < ApplicationController
 
     # helper method
     private def get_title url
+    logger.debug url
     begin
         doc = Nokogiri::HTML(open(url))
-        return doc.css('title').content
+        logger.debug doc
+        doc.css('title').content
+        logger.debug doc.css('title').inspect
     rescue
         return "No title"
     end
 end 
 
-    def update_link
-    end
+def update_link
+end
 
-    # /api/delete_link
-    def delete_link
-        id = params[:id]
-        phoneno = params[:phoneno]
+# /api/delete_link
+def delete_link
+    id = params[:id]
+    phoneno = params[:phoneno]
+    begin
         @link = Link.find(id)
-        puts @link
-        puts User.find_by_phoneno(phoneno)
         begin
-            if @link.user_id == User.find_by_phoneno(phoneno)
+            if @link.user_id == User.find_by_phoneno(phoneno).id and @link.typep == false
                 @link.destroy
                 render json: true
             else
@@ -170,18 +173,21 @@ end
         rescue
             render json: false
         end
+    rescue
+        render json: true
     end
+end
 
-    # /api/getlinks/:id/:phoneno
-    def getlinks
-        @alllinks = {"public" => [], "private" => []}
-        if params[:id] and params[:phoneno]
-            user = User.find_by_phoneno(params[:phoneno])
-            @alllinks["public"] = Link.select {|link| link.id > params[:id].to_i and link.typep == true}
-            @alllinks["private"] = Link.select { |link| link.user_id == user.id and link.typep == false}
-        else
-            render json: false
-        end
-        render json: @alllinks
+# /api/getlinks/:id/:phoneno
+def getlinks
+    @alllinks = {"public" => [], "private" => []}
+    if params[:id] and params[:phoneno]
+        user = User.find_by_phoneno(params[:phoneno])
+        @alllinks["public"] = Link.select {|link| link.id > params[:id].to_i and link.typep == true}
+        @alllinks["private"] = Link.select { |link| link.user_id == user.id and link.typep == false}
+    else
+        render json: false
     end
+    render json: @alllinks
+end
 end
